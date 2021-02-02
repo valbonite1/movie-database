@@ -54,7 +54,7 @@ const Navbar = () => {
                             <a href="#about">Movies</a>
                         </li>
                         <li className="nav-item" onClick={closeMobMenu}>
-                            <a href="#work">Top Rated</a>
+                            <a href="#work">TV Series</a>
                         </li>
                     </ul>
                 </div>

@@ -1,5 +1,6 @@
 import React from 'react'
-import { Bar } from 'react-chartjs-2';
+import { HorizontalBar } from 'react-chartjs-2';
+import './Chart.css';
 import axios from 'axios';
 
 const Chart: React.FC = () => {
@@ -8,23 +9,23 @@ const Chart: React.FC = () => {
 
   const getAnalytics = async () => {
 
-    let xlabels: number[] = []
-    let ylabels: number [] = []
+    let movieYear: number[] = []
+    let movieCount: number [] = []
 
     await axios
     .get(`${process.env.REACT_APP_BASE_URL}/analytics/year`)
     .then(result => {
       const { data: results } = result.data;
       for (let year of results) {
-        xlabels.push(year._id);
-        ylabels.push(year.count)
+        movieYear.push(year._id);
+        movieCount.push(year.count)
       }
       setChart({
-        labels: xlabels,
+        labels: movieYear.reverse(),
         datasets: [
           {
             label: "Movie Count",
-            data: ylabels,
+            data: movieCount.reverse(),
             borderWidth: 0,
             backgroundColor: `#EEB600`,
             pointHoverBorderColor: '#810f7c',
@@ -34,7 +35,7 @@ const Chart: React.FC = () => {
           }
         ]
       });
-      console.log(xlabels);
+      console.log(movieCount);
     })
     .catch(err => {
       console.log(err);
@@ -49,41 +50,91 @@ const Chart: React.FC = () => {
 
   return (
     <>
-      <Bar 
-        data={chart}
-        height={200}
-        width={600}
-        options={{
-          responsive: true,
-          title: { text: "MOVIES RELEASED PER YEAR", display: true, fontColor: "white" },
-          scales: {
-            yAxes: [
-              {
-                ticks: {
-                  autoSkip: true,
-                  maxTicksLimit: 10,
-                  beginAtZero: true,
-                  fontColor: "white"
-                },
-                gridLines: {
-                  display: true,
-                  color: "#333"
-                },
+      <div className='chart-container'>
+        <div className='mobile-chart'>
+          <HorizontalBar 
+            type={{
+              type: "horizontalBar"
+            }}
+            data={chart}
+            height={800}
+            width={600}
+            options={{
+              responsive: true,
+              title: { text: "MOVIES RELEASED PER YEAR", display: true, fontColor: "white" },
+              scales: {
+                yAxes: [
+                  {
+                    ticks: {
+                      fontColor: "white",
+                      beginAtZero: true
+                    },
+                    gridLines: {
+                      display: false
+                    }
+                  }
+                ],
+                xAxes: [
+                  {
+                    ticks: {
+                      autoSkip: true,
+                      maxTicksLimit: 8,
+                      beginAtZero: true,
+                      fontColor: "white"
+                    },
+                    gridLines: {
+                      display: true,
+                      color: "#333"
+                    },
+                  }
+                ],
               }
-            ],
-            xAxes: [
-              {
-                ticks: {
-                  fontColor: "white"
-                },
-                gridLines: {
-                  display: false
-                }
+            }}
+          />
+        </div>
+        <div className='desktop-chart'>
+          <HorizontalBar 
+            type={{
+              type: "horizontalBar"
+            }}
+            data={chart}
+            height={400}
+            width={600}
+            options={{
+              responsive: true,
+              title: { text: "MOVIES RELEASED PER YEAR", display: true, fontColor: "white" },
+              scales: {
+                yAxes: [
+                  {
+                    ticks: {
+                      fontColor: "white",
+                      beginAtZero: true
+                    },
+                    gridLines: {
+                      display: false
+                    }
+                  }
+                ],
+                xAxes: [
+                  {
+                    ticks: {
+                      autoSkip: true,
+                      maxTicksLimit: 8,
+                      beginAtZero: true,
+                      fontColor: "white"
+                    },
+                    gridLines: {
+                      display: true,
+                      color: "#333"
+                    },
+                  }
+                ],
               }
-            ]
-          }
-        }}
-      />
+            }}
+          />
+        </div>
+          
+      </div>
     </>
   )
 }
