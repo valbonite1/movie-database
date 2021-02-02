@@ -1,7 +1,9 @@
 import React, { useEffect } from 'react'
 import { useAuth0 } from '@auth0/auth0-react';
-import Navbar from '../Navbar/Navbar';
-import HeroSection from '../HeroSection/HeroSection';
+import Genre from '../Movie/Genre/Genre';
+import LandingPage from '../HeroSection/LandingPage';
+import Chart from '../Analytics/Chart';
+
 
 
 const Home: React.FC = () => {
@@ -11,7 +13,9 @@ const Home: React.FC = () => {
     <>
       {isAuthenticated && (
         <>
-          <HeroSection /> 
+          <LandingPage />
+          <Genre />
+          <Chart />
         </>
     )}
   </>

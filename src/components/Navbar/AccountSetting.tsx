@@ -12,8 +12,13 @@ const AccountSetting = () => {
         <div className="dropdown" style={{float: 'right'}}>
           <button className="dropbtn"><img src={user.picture} alt={user.name} className='acc-pic' /></button>
           <div className="dropdown-content">
-              <a href="#" className='drop-item'>Account</a>
-              <a href="#" className='drop-item'><Logout /></a>
+            <div className='drop-item'>
+              <img src={user.picture} alt={user.name} className='drp-pic' />
+              <p className='user-header'>{user.name}</p>
+              <p className='user-email'>{user.email}</p>
+            </div>
+            <a href="#" >View Profile</a>
+            <a href="#" ><Logout /></a>
           </div>
         </div>
       </div>

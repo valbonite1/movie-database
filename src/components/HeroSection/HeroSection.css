@@ -2,4 +2,145 @@
   height: 100vh;
   width: 100%;
   background-color: #333;
+  background-image: url("./img/inter.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  z-index: -1;
+}
+
+.hero-overlay {
+  width: 100%;
+  height: 100%;
+  background: rgb(0, 0, 0);
+  background: linear-gradient(
+    rgba(0, 0, 0, 0.8) 0%,
+    rgba(0, 0, 0, 0.5) 25%,
+    rgba(255, 255, 255, 0.1) 50%,
+    rgba(0, 0, 0, 1) 100%
+  );
+  z-index: 1;
+}
+
+.hero-overlay-two {
+  width: 100%;
+  height: 100%;
+  background: rgb(0, 0, 0);
+  background: linear-gradient(
+    90deg,
+    rgba(0, 0, 0, 0.2) 0%,
+    rgba(255, 255, 255, 0.1) 50%,
+    rgba(0, 0, 0, 0.2) 100%
+  );
+}
+
+.hero-text {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+  flex-direction: column;
+  padding: 0 4rem;
+}
+
+.hero-text > h1 {
+  color: #fff;
+  font-size: 4rem;
+  font-weight: 300;
+  margin-bottom: 2rem;
+}
+
+.subheader {
+  display: none;
+}
+
+.hero-text .genre-list {
+  color: #fff;
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  margin-bottom: 4rem;
+}
+
+.hero-text ul li {
+  padding: 0 1.5rem;
+}
+
+.hero-text .details {
+  display: flex;
+  width: 100%;
+  color: rgb(255, 255, 255);
+  justify-content: center;
+}
+
+.hero-text .details li {
+  padding: 0 1.5rem;
+  font-size: 0.6rem;
+}
+
+.read-more {
+  width: 10rem;
+  height: 2.5rem;
+  background-color: var(--dark-orange);
+  border: none;
+  color: #fff;
+  border-radius: 5px;
+}
+
+.read-more:hover {
+  background-color: var(--darker-orange);
+  cursor: pointer;
+}
+
+@media screen and (min-width: 768px) {
+  .hero-overlay {
+    background: linear-gradient(
+      rgba(0, 0, 0, 1) 0%,
+      rgba(0, 0, 0, 1) 0%,
+      rgba(0, 0, 0, 0.7) 10%,
+      rgba(255, 255, 255, 0.2) 50%,
+      rgba(0, 0, 0, 0.5) 75%,
+      rgba(0, 0, 0, 1) 100%
+    );
+  }
+  .hero-overlay-two {
+    background: linear-gradient(
+      90deg,
+      rgba(0, 0, 0, 0.8) 0%,
+      rgba(255, 255, 255, 0.1) 50%,
+      rgba(0, 0, 0, 0.2) 100%
+    );
+  }
+}
+
+@media screen and (min-width: 1220px) {
+  .hero-text {
+    width: 50%;
+    align-items: flex-start;
+    padding: 0 10rem;
+  }
+
+  .hero-text > h1 {
+    font-size: 4rem;
+    margin-bottom: 0;
+  }
+
+  .hero-text .genre-list,
+  .hero-text .details {
+    justify-content: flex-start;
+  }
+
+  .hero-text .genre-list li:first-child,
+  .hero-text .details li:first-child {
+    padding-left: 0.4rem;
+  }
+
+  .subheader {
+    display: flex;
+    color: rgb(199, 199, 199);
+    margin-bottom: 2rem;
+    padding-left: 0.2rem;
+  }
 }
