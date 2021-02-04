@@ -1,13 +1,12 @@
 import './App.css';
-import { Route, Switch } from "react-router-dom";
-import ProtectedRoute from "./auth/protected-route";
+import { Route, Switch, BrowserRouter as Router } from "react-router-dom";
 import { useAuth0 } from '@auth0/auth0-react';
 import Home from './components/Home/Home';
 import Login from './components/Login/Login';
 import Navbar from './components/Navbar/Navbar';
 import { Loading } from './components';
-import HeroSection from './components/HeroSection/HeroSection';
-
+import Movie from './components/Movie/Pagination/Movie';
+import MovieItem from './components/Movie/Pagination/MovieItem';
 const App: React.FC = () => {
 
   const { isLoading } = useAuth0();
@@ -15,13 +14,17 @@ const App: React.FC = () => {
   if (isLoading) return <Loading />
 
   return (
-    <>
-      <Login />
-      <Navbar />
-      <Switch>
+    <Router onUpdate={() => window.scrollTo(0, 0)}>
+      <>
+        <Login />
+        <Navbar />
+        <Switch>
           <Route path="/" exact component={Home} />
-      </Switch>
-    </>
+          <Route path="/movies/page/:page" component={Movie} />
+          <Route path="/movies/page/:page/:movie" component={MovieItem} />
+        </Switch>
+      </>
+    </Router>
   )
 }
 

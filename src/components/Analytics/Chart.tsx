@@ -35,7 +35,6 @@ const Chart: React.FC = () => {
           }
         ]
       });
-      console.log(movieCount);
     })
     .catch(err => {
       console.log(err);
@@ -67,7 +66,8 @@ const Chart: React.FC = () => {
                   {
                     ticks: {
                       fontColor: "white",
-                      beginAtZero: true
+                      beginAtZero: true,
+                      maxTicksLimit: 20
                     },
                     gridLines: {
                       display: false
@@ -98,7 +98,7 @@ const Chart: React.FC = () => {
               type: "horizontalBar"
             }}
             data={chart}
-            height={400}
+            height={300}
             width={600}
             options={{
               responsive: true,
@@ -108,7 +108,8 @@ const Chart: React.FC = () => {
                   {
                     ticks: {
                       fontColor: "white",
-                      beginAtZero: true
+                      beginAtZero: true,
+                      maxTicksLimit: 25
                     },
                     gridLines: {
                       display: false

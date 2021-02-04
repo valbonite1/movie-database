@@ -1,0 +1,13 @@
+.movie-container {
+  color: #fff;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.poster-container {
+  height: 100%;
+  width: 100%;
+  padding: 5rem 2rem;
+}
