@@ -28,6 +28,7 @@ const MovieChild: React.FC= () => {
   /* ==============================GETS DATA OF CURRENT PAGE========================================= */
 
   const fetchPosts = async () => {
+    setLoading(true);
     await axios
     .get(`${process.env.REACT_APP_BASE_URL}${window.location.pathname}/filter?filterBy=year&asc=${year}&genre=${genre}&language=${language}&type=${type}&rated=${rated}`)
     .then(result => {
@@ -41,18 +42,17 @@ const MovieChild: React.FC= () => {
       console.log(result.data.data.totalNumberOfPages)
       const curNum = `${window.location.pathname}`;
       setCurrentButton(parseInt(curNum.slice(13)));
+      setLoading(false);
     })
     .catch(err => console.log(err));
   }
   
   useEffect(() => {
-    setLoading(true);
     fetchPosts();
     changePagination();
     getLanguages();
     getGenres();
     getRated();
-    setLoading(false);
   }, [totalPages]);
 
   
@@ -120,17 +120,15 @@ const MovieChild: React.FC= () => {
   /* ==============================GETS CURRENT POST========================================= */
 
   const fetchCurrentPagePost = async (currentButton) => {
-    setLoading(true);
+    setLoading(true)
     await axios
     .get(`${process.env.REACT_APP_BASE_URL}/movies/page/${currentButton}/filter?filterBy=year&asc=${year}&genre=${genre}&language=${language}&type=${type}&rated=${rated}`)
     .then(result => {
       const results = result.data.data.movies;
       console.log(results);
-      setMovies(results)
-      console.log(movies, 'HELLOOO')
+      setMovies(results);
       setLoading(false);
     })
-
     .catch(err => console.log(err));
   }
 
@@ -184,6 +182,7 @@ const MovieChild: React.FC= () => {
 
 
   const addFilter = async (year, genre, language, rated) => {
+    setLoading(true)
     await axios
     .get(`${process.env.REACT_APP_BASE_URL}/movies/page/${currentButton}/filter?filterBy=year&asc=${year}&genre=${genre}&language=${language}&type=${type}&rated=${rated}`)
     .then(result => {
@@ -193,12 +192,12 @@ const MovieChild: React.FC= () => {
         console.log("no matches found")
       }
       setMovies(results)
-      setLoading(false);
       if (result.data.data.totalNumberOfPages > 999) {
         setTotalPages(999)
       } else {
         setTotalPages(result.data.data.totalNumberOfPages);
       }
+      setLoading(false);
     })
     .catch(err => console.log(err));
   }
@@ -217,10 +216,10 @@ const MovieChild: React.FC= () => {
     setGenre('default')
     setRated('default')
     setCurrentButton(1);
+    setCurrentPage(1);
   }
   
   const movieResults = () => {
-
     if (movies === undefined) {
       return <NoResultFound />
     } else {
@@ -258,7 +257,7 @@ const MovieChild: React.FC= () => {
         setRated={setRated}//
         clearFilter={clearFilter}
       />
-      { loading && movies.length === 0 ? <Loading /> : <div className='movie-result'>{movieResults()}</div>}
+      { loading ? <Loading /> : <div className='movie-result'>{movieResults()}</div>}
       </div>
     </>
   );

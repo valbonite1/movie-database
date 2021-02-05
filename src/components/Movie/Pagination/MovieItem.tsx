@@ -13,7 +13,8 @@ const MovieItem = ({ movies }) => {
             <div className='movie-poster'>
               {movie.poster !== undefined  ? 
                 <img src={movie.poster} alt={movie.title} className='movie-img' /> :
-                <div className='default-poster'><h3>IMFLIX</h3></div>}
+                <div className='default-poster'><h3>MFLIX</h3></div>
+              }
             </div>
             <div className='movie-text'>
               {movie.title}
