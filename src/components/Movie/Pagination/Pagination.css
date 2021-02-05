@@ -24,9 +24,10 @@
 }
 
 .pagination-container a.active {
-  background-color: #007bff;
+  background-color: var(--dark-orange);
   color: white;
-  border: 1px solid #7cbddb;
+  border: 1px solid var(--dark-orange);
+  border-radius: 100%;
 }
 
 .pagination-container a.disabled {

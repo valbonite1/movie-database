@@ -29,6 +29,8 @@
 .navbar-logo {
   display: flex;
   align-items: center;
+  background-color: var(--dark-orange);
+  padding: 0.8rem 1rem;
 }
 
 .logo.scrolled {

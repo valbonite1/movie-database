@@ -5,24 +5,29 @@ import MovieItem from './MovieItem';
 import Loading from '../../loading';
 import './Movie.css';
 import MovieHero from './MovieHero'
-import { useHistory } from 'react-router-dom';
+import AdvanceFilter from './Filter/AdvanceFilter';
 
 const Movie: React.FC = () => {
 
   const [movies, setMovies] = useState<Array<object>>([])
   const [loading, setLoading] = useState<boolean>(false) 
   const [totalPages, setTotalPages] = useState<number>(1);
-
   const [currentButton, setCurrentButton] = useState<number>(1)
-
   const [currentPage, setCurrentPage] = useState<number>(currentButton)
-
-  /* ======================================================================= */
+  const [genre, setGenre] = useState<string>('default');
+  const [year, setYear] = useState<string>('false');
+  const [language, setLanguage] = useState<string>('default');
+  const [type, setType] = useState<string>('default');
+  const [rated, setRated] = useState<string>('default');
+  const [isModal, setModal] = useState<boolean>(false);
+  const [languageList, setLanguageList] = useState<Array<string>>([])
+  /* ==============================GETS DATA OF CURRENT PAGE========================================= */
 
   
   useEffect(() => {
 
     const fetchPosts = async () => {
+
       setLoading(true)
       await axios
       .get(`${process.env.REACT_APP_BASE_URL}${window.location.pathname}`)
@@ -31,10 +36,10 @@ const Movie: React.FC = () => {
         console.log(results);
         setMovies(results)
         setLoading(false);
-        if (result.data.data.totalNumberOfPages > 999) {
+        if (result.data.totalNumberOfPages > 999) {
           setTotalPages(999)
         } else {
-          setTotalPages(result.data.data.totalNumberOfPages);
+          setTotalPages(result.data.totalNumberOfPages);
         }
         const curNum = `${window.location.pathname}`;
         setCurrentButton(parseInt(curNum.slice(13)));
@@ -42,10 +47,11 @@ const Movie: React.FC = () => {
       .catch(err => console.log(err));
     }
     fetchPosts();
+    getLanguages();
   }, []);
 
   
-  /* ======================================================================= */
+  /* ==============================ADJUSTS THE PAGINATION========================================= */
 
   const numberOfPages: Array<number>  = []
   for (let i = 1; i <= totalPages; i++) {
@@ -106,10 +112,13 @@ const Movie: React.FC = () => {
     setCurrentPage(currentButton)
   }
 
+
+  /* ==============================GETS CURRENT POST========================================= */
+
   const fetchCurrentPagePost = async (currentButton) => {
     console.log(currentButton, "hello");
     await axios
-    .get(`${process.env.REACT_APP_BASE_URL}/movies/page/${currentButton}`)
+    .get(`${process.env.REACT_APP_BASE_URL}/movies/page/${currentButton}/filter?filterBy=year&asc=${year}&genre=${genre}&language=${language}&type=${type}&rated=${rated}`)
     .then(result => {
       const results = result.data.data.movies;
       console.log(results);
@@ -119,21 +128,58 @@ const Movie: React.FC = () => {
     .catch(err => console.log(err));
   }
 
-    /* ======================================================================= */
+    /* ==============================USEEFFECT FOR CHANGES IN PAGE========================================= */
     
   useEffect(() => {
     changePagination();
     fetchCurrentPagePost(currentButton);
   }, [currentButton])
 
+  /* ================================LOAD BEFORE DATA======================================= */
 
   if (loading && movies.length === 0) {
     return <Loading />
+  }
+
+  /* ================================GETS LIST OF GENRE======================================= */
+  /* ================================GETS LIST OF LANGUAGES======================================= */
+
+  const getLanguages = async () => {
+    await axios
+    .get(`${process.env.REACT_APP_BASE_URL}/movies/distinct/languages`)
+    .then(result => {
+      const results = result.data.data
+      console.log(results)
+      setLanguageList(results);
+    })
+    .catch(err => console.log(err));
+  }
+ 
+  /* ================================SUBMITS FILTER======================================= */
+
+
+  const addFilter = (e) => {
+    console.log(year)
+    console.log(typeof year)
+    console.log(language)
+    console.log(typeof language)
+    e.preventDefault()
   }
   
   return (
     <div className="movie-container">
       <MovieHero movies={movies} />
+      <button onClick={() => setModal(true)}>Click Here</button>
+      <AdvanceFilter 
+        isVisible={isModal}
+        onClose={() => setModal(false)}
+        addFilter={addFilter}
+        setYear={setYear}
+        year={year}
+        languageList={languageList}
+        language={language}
+        setLanguage={setLanguage}
+      />
       <div className='poster-container'>
         <MovieItem movies={movies} /> 
       </div>
