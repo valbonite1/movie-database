@@ -9,7 +9,7 @@
   height: 4rem;
   align-items: center;
   transition: 0.3s ease;
-  z-index: 2;
+  z-index: 20;
   color: inherit;
 }
 

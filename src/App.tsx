@@ -1,4 +1,5 @@
 import './App.css';
+import React from 'react';
 import { Route, Switch, BrowserRouter as Router } from "react-router-dom";
 import { useAuth0 } from '@auth0/auth0-react';
 import Home from './components/Home/Home';
@@ -7,7 +8,9 @@ import Navbar from './components/Navbar/Navbar';
 import { Loading } from './components';
 import Movie from './components/Movie/Pagination/Movie';
 import MovieItem from './components/Movie/Pagination/MovieItem';
+
 const App: React.FC = () => {
+
 
   const { isLoading } = useAuth0();
 

@@ -9,7 +9,7 @@
 
 .loading {
   animation: rotation 0.5s infinite linear;
-  width: 4rem;
+  width: 5rem;
 }
 
 @keyframes rotation {

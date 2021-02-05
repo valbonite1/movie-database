@@ -1,0 +1,11 @@
+.no-result {
+  display: flex;
+  justify-content: center;
+  height: 50vh;
+  width: 100%;
+  align-items: center;
+}
+
+.no-result > h1 {
+  font-weight: 100;
+}
