@@ -49,11 +49,14 @@ const MovieChild: React.FC= () => {
   
   useEffect(() => {
     fetchPosts();
-    changePagination();
     getLanguages();
     getGenres();
     getRated();
-  }, [totalPages]);
+  }, []);
+
+  useEffect(() => {
+    changePagination();
+  }, [totalPages])
 
   
   /* ==============================ADJUSTS THE PAGINATION========================================= */
@@ -136,7 +139,6 @@ const MovieChild: React.FC= () => {
     
   useEffect(() => {
     fetchCurrentPagePost(currentButton);
-    changePagination();
   }, [currentButton])
 
 
@@ -216,7 +218,7 @@ const MovieChild: React.FC= () => {
     setGenre('default')
     setRated('default')
     setCurrentButton(1);
-    setCurrentPage(1);
+
   }
   
   const movieResults = () => {
