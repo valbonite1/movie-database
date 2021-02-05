@@ -23,7 +23,7 @@ const MovieChild: React.FC= () => {
   const [languageList, setLanguageList] = useState<Array<string>>([])
   const [genreList, setGenreList] = useState<Array<string>>([])
   const [ratedList, setRatedList] = useState<Array<string>>([])
-  /* const [numberOfPages] = useState<Array<number>>([]) */
+ 
 
   /* ==============================GETS DATA OF CURRENT PAGE========================================= */
 

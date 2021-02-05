@@ -11,7 +11,9 @@ const MovieItem = ({ movies }) => {
         <li key={index} className="movie-card">
           <Link to={`${window.location.pathname}${movie.title}`}>
             <div className='movie-poster'>
-              <img src={movie.poster} alt={movie.title} className='movie-img' />
+              {movie.poster !== undefined  ? 
+                <img src={movie.poster} alt={movie.title} className='movie-img' /> :
+                <div className='default-poster'><h3>IMFLIX</h3></div>}
             </div>
             <div className='movie-text'>
               {movie.title}
