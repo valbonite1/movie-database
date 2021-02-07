@@ -7,6 +7,16 @@
   margin: 0.5rem;
 }
 
+.slider-container {
+  display: flex;
+  width: 500px;
+}
+
+.MuiSlider-root {
+  color: var(--dark-orange);
+  width: 150;
+}
+
 select {
   appearance: none;
   border: solid 1px #333;

@@ -7,7 +7,10 @@ import Login from './components/Login/Login';
 import Navbar from './components/Navbar/Navbar';
 import { Loading } from './components';
 import Movie from './components/Movie/Pagination/Movie';
-import MovieItem from './components/Movie/Pagination/MovieItem';
+import MovieDetail from './components/Movie/Pagination/MovieDetail/MovieDetail';
+import ProtectedRoute from './auth/protected-route';
+import SearchResult from './components/Movie/Pagination/Search/SearchResult';
+
 
 const App: React.FC = () => {
 
@@ -18,15 +21,14 @@ const App: React.FC = () => {
 
   return (
     <Router onUpdate={() => window.scrollTo(0, 0)}>
-      <>
-        <Login />
-        <Navbar />
-        <Switch>
-          <Route path="/" exact component={Home} />
-          <Route path="/movies/page/:page" component={Movie} />
-          <Route path="/movies/page/:page/:movie" component={MovieItem} />
-        </Switch>
-      </>
+      <Login />
+      <Navbar />
+      <Switch>
+        <Route path="/" exact component={Home} />
+        <Route path="/movies/page/:page" component={Movie} />
+        <Route path="/movies/:_id/:title" component={MovieDetail} />
+        <Route path="/search" component={SearchResult} />
+      </Switch>
     </Router>
   )
 }

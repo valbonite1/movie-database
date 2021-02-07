@@ -9,14 +9,14 @@
 
 .loading {
   animation: rotation 0.5s infinite linear;
-  width: 5rem;
+  width: 2.5rem;
 }
 
-@keyframes rotation {
+/* @keyframes rotation {
   from {
     transform: rotate(0deg);
   }
   to {
     transform: rotate(359deg);
   }
-}
+} */

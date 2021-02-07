@@ -8,9 +8,9 @@ const MovieHero = ({ movies }) => {
           <div className='img-left'>
             <img src='/images/john-wick.jpeg' alt='john-wick' className='hero-img' />
           </div>
-          <div className='img-right'>
+          {/* <div className='img-right'>
             <img src='/images/martian.jpg' alt='john-wick' className='hero-img' />
-          </div>
+          </div> */}
       </div>
       <div className='movie-overlay'>
       </div>

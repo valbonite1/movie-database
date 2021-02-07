@@ -1,8 +1,8 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
-import './MovieItem.css'
+import './SearchItem.css'
 
-const MovieItem = ({ movies }) => {
+const SearchItem = ({ movies }) => {
   return (
     
     <ul className="movie-list-container">
@@ -42,4 +42,4 @@ const MovieItem = ({ movies }) => {
   )
 }
 
-export default MovieItem;
+export default SearchItem;

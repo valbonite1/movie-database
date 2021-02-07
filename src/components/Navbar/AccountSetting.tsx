@@ -18,7 +18,7 @@ const AccountSetting = () => {
               <p className='user-email'>{user.email}</p>
             </div>
             <a href="#" >View Profile</a>
-            <a href="#" ><Logout /></a>
+            <a href="/" ><Logout /></a>
           </div>
         </div>
       </div>

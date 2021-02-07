@@ -8,7 +8,7 @@ import MovieHero from './MovieHero'
 import Filter from './Filter/Filter';
 import NoResultFound from './Filter/NoResultFound';
 
-const MovieChild: React.FC= () => {
+const Movie: React.FC= () => {
 
   const [movies, setMovies] = useState<Array<object>>([])
   const [loading, setLoading] = useState<boolean>(false) 
@@ -20,10 +20,19 @@ const MovieChild: React.FC= () => {
   const [language, setLanguage] = useState<string>('default');
   const [type, setType] = useState<string>('default');
   const [rated, setRated] = useState<string>('default');
-  const [languageList, setLanguageList] = useState<Array<string>>([])
-  const [genreList, setGenreList] = useState<Array<string>>([])
-  const [ratedList, setRatedList] = useState<Array<string>>([])
- 
+  const [languageList, setLanguageList] = useState<Array<string>>([]);
+  const [genreList, setGenreList] = useState<Array<string>>([]);
+  const [ratedList, setRatedList] = useState<Array<string>>([]);
+  const [value, setValue] = React.useState<number[]>([0, 10]);
+
+  const handleRatingChange = (e: any, newValue: number | number[]) => {
+    setValue(newValue as number[]);
+    console.log(value);
+  };
+/* 
+  useEffect(() => {
+    handleRatingChange();
+  },[value]) */
 
   /* ==============================GETS DATA OF CURRENT PAGE========================================= */
 
@@ -208,7 +217,7 @@ const MovieChild: React.FC= () => {
 
   useEffect(()=> {
     addFilter(year,genre,language,rated)
-  }, [year, genre, language, rated])
+  }, [year, genre, language, rated, value])
   
   /* ================================CONDITIONALLY RENDERS FILTER RESULTS======================================= */
 
@@ -258,6 +267,11 @@ const MovieChild: React.FC= () => {
         ratedList={ratedList}
         setRated={setRated}//
         clearFilter={clearFilter}
+        genre={genre}
+        language={genre}
+        rated={rated}
+        value={value}
+        handleRatingChange={handleRatingChange}
       />
       { loading ? <Loading /> : <div className='movie-result'>{movieResults()}</div>}
       </div>
@@ -265,5 +279,5 @@ const MovieChild: React.FC= () => {
   );
 }
 
-export default MovieChild;
+export default Movie;
 

@@ -2,16 +2,22 @@ import React from 'react'
 import { HorizontalBar } from 'react-chartjs-2';
 import './Chart.css';
 import axios from 'axios';
+import Loading from '../loading';
+import { useAuth0 } from "@auth0/auth0-react";
 
 const Chart: React.FC = () => {
 
   const [chart, setChart] = React.useState({});
+  const [loading, setLoading] = React.useState(false);
+
+  const { getAccessTokenSilently } = useAuth0();
 
   const getAnalytics = async () => {
-
+    setLoading(true);
     let movieYear: number[] = []
     let movieCount: number [] = []
-
+    const token = await getAccessTokenSilently();
+    console.log(token, "HELLO!")
     await axios
     .get(`${process.env.REACT_APP_BASE_URL}/analytics/year`)
     .then(result => {
@@ -35,6 +41,7 @@ const Chart: React.FC = () => {
           }
         ]
       });
+      setLoading(false);
     })
     .catch(err => {
       console.log(err);
@@ -48,7 +55,7 @@ const Chart: React.FC = () => {
 
 
   return (
-    <>
+    <>{ loading ? <Loading /> :
       <div className='chart-container'>
         <div className='mobile-chart'>
           <HorizontalBar 
@@ -136,6 +143,7 @@ const Chart: React.FC = () => {
         </div>
           
       </div>
+      }
     </>
   )
 }

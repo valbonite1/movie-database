@@ -7,7 +7,7 @@ const YearDropDown = ({ year, setYear }) => {
       <div className="custom-select">
         <label className='drop-label' ><span className="sr-only">Select a word:</span>
           <select name="words" id="id-1" onChange={(e) => setYear(e.target.value)}>
-            <option value='' disabled selected className='option-ph'>year</option>
+            <option value='false' disabled selected className='option-ph'>year</option>
             <option value="false">Newest to Oldest</option>
             <option value="true">Oldest to Newest</option>
           </select>

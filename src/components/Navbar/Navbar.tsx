@@ -3,7 +3,7 @@ import './Navbar.css';
 import * as RiIcons from 'react-icons/ri';
 import * as SiIcons from 'react-icons/si';
 import Search from './Search';
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { useAuth0 } from '@auth0/auth0-react';
 import AccountSetting from './AccountSetting';
 import axios from 'axios';
@@ -12,15 +12,14 @@ import axios from 'axios';
 
 const Navbar = () => {
 
+    /* const history = useHistory(); */
+
     const [click, setClick] = React.useState(false);    //state for hamburger menu
     const handleClick = () => setClick(!click);    //handles click for burger change
     const closeMobMenu = () => setClick(false);   // handles menu bar appear
 
     const [navbar, setNavbar] = React.useState(false); //navbar color change on scroll
     const { isAuthenticated } = useAuth0();
-
-    const [searchValue, setSearchValue] = React.useState('');
-    const [movies, setMovies] = React.useState([]);
     const [page, setPage] = React.useState(1);
 
     //function to change navbar color during scroll
@@ -41,21 +40,6 @@ const Navbar = () => {
     }
 
     //function to call search
-
-    const getMovieRequest = async (searchValue, page) => {
-        await axios
-        .get(`${process.env.REACT_APP_BASE_URL}/movies/page/{page}/search?query=${searchValue}`)
-        .then(response => {
-            const { data: results } = response.data;
-            setMovies(results);
-            console.log(results);
-        })
-        .catch((err) => console.log(err));
-    }
-
-    React.useEffect(() => {
-        getMovieRequest(searchValue, page);
-    }, [searchValue])
 
     return(
         <> 
@@ -84,7 +68,7 @@ const Navbar = () => {
                 </div>
             </div>
             <div className='account-section'>
-                <Search setSearchValue={setSearchValue} />
+                <Search />
                 <AccountSetting />
             </div>
         </nav>
