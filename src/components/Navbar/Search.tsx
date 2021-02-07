@@ -16,14 +16,24 @@ const Search: React.FC = () => {
     }
   }
 
+  const handleClearSearch = (e) => {
+    if (e.keyCode === 8) {
+      history.GoBack();
+    }
+  }
+
   const handleSearch = (e) => {
     setSearchValue(e.target.value)
     history.push({
-        pathname: '/search',
+        pathname: '/search/1',
         state: {
             query: searchValue
         }
     })
+    handleClearSearch(e);
+    if (searchValue.length <= 1) {
+      history.push('/');
+    }
 }
 
 

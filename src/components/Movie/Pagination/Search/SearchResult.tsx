@@ -6,11 +6,12 @@ import Loading from '../../../loading';
 import './SearchResult.css';
 import NoResultFound from '../Filter/NoResultFound';
 import { useLocation } from 'react-router-dom';
+import { useAuth0 } from "@auth0/auth0-react";
 
 const SearchResult = () => {  
 
+  const { getAccessTokenSilently } = useAuth0();
   const location = useLocation();
-  console.log(location.state.query)
 
   const [page, setPage] = useState(1)
   const [movies, setMovies] = useState([])
@@ -18,27 +19,79 @@ const SearchResult = () => {
   const [currentButton, setCurrentButton] = useState<number>(1)
   const [totalPages, setTotalPages] = useState<number>(1);
   const [currentPage, setCurrentPage] = useState<number>(1)
+  const [rating, setRating] = useState([0, 10])
+  const [ratingAsc, setRatingAsc] = useState('true');
+  const [year, setYear] = useState<string>('false');
+  const [language, setLanguage] = useState<string>('default');
+  const [type, setType] = useState<string>('default');
+  const [rated, setRated] = useState<string>('default');
+  const [genre, setGenre] = useState<string>('default'); 
 
-  const getMovieRequest = async (page) => {
+  /* =====================GET INITIAL SEARCH======================== */
+
+  const getMovieRequest = async () => {
+
+    const token = await getAccessTokenSilently();
+
+    console.log(token);
+
     setLoading(true)
     await axios
-    .get(`${process.env.REACT_APP_BASE_URL}/movies/page/${page}/search?query=${location.state.query}`)
+    .get(`${process.env.REACT_APP_BASE_URL}/movies/page/${currentButton}/filter/v3/?rating=0-10&ascR=true&year=1891-2016&ascY=false&genre=default&language=default&type=default&rated=default&search=${location.state.query}`)
     .then(response => {
         const { movies: results } = response.data.data;
+        const { totalNumberOfPages: pages} = response.data.data;
         setMovies(results);
+        if (pages > 999) {
+          setTotalPages(999);
+        } else {
+          setTotalPages(pages);
+        }
         console.log(movies)
         setLoading(false)
     })
     .catch((err) => console.log(err));
   }
 
+  /* =================USEEFFECT FOR FIRST================ */
+
   useEffect(() => {
-      getMovieRequest(page);
+    getMovieRequest();
   }, [location.state.query])
+
+  /* =====================USE EFFECT FOR PAGINATION =============================== */
 
   useEffect(() => {
     changePagination();
   }, [totalPages])
+
+  /* ==========================GETS CURRENT POST==================================== */
+
+  const fetchCurrentPagePost = async (currentButton) => {
+    setLoading(true)
+    await axios
+    .get(`${process.env.REACT_APP_BASE_URL}/movies/page/${currentButton}/filter/v3/?rating=0-10&ascR=true&year=1891-2016&ascY=false&genre=default&language=default&type=default&rated=default&search=${location.state.query}`)
+    .then(result => {
+      const { movies: results } = result.data.data;
+      console.log(results);
+      setMovies(results);
+      setLoading(false);
+    })
+    .catch(err => console.log(err));
+  }
+
+  /* ========================USEEFFECT FOR CURRENT POST================================= */
+
+  useEffect(() => {
+    getMovieRequest()
+  }, [])
+
+
+  /* ==============================USEEFFECT FOR CHANGES IN PAGE========================================= */
+    
+  useEffect(() => {
+    fetchCurrentPagePost(currentButton);
+  }, [currentButton])
 
   
   /* ==============================ADJUSTS THE PAGINATION========================================= */
@@ -122,10 +175,7 @@ const SearchResult = () => {
       )
       
     }
-  }
-
-
-  
+  }  
   return (
     <>
     { loading ? <Loading /> : <div className='search-result movie-result'>{movieResults()}</div>}

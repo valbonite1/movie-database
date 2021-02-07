@@ -10,6 +10,7 @@ import Movie from './components/Movie/Pagination/Movie';
 import MovieDetail from './components/Movie/Pagination/MovieDetail/MovieDetail';
 import ProtectedRoute from './auth/protected-route';
 import SearchResult from './components/Movie/Pagination/Search/SearchResult';
+import Footer from './components/Footer/Footer';
 
 
 const App: React.FC = () => {
@@ -27,8 +28,9 @@ const App: React.FC = () => {
         <Route path="/" exact component={Home} />
         <Route path="/movies/page/:page" component={Movie} />
         <Route path="/movies/:_id/:title" component={MovieDetail} />
-        <Route path="/search" component={SearchResult} />
+        <Route path="/search/:page" component={SearchResult} />
       </Switch>
+      <Footer />
     </Router>
   )
 }

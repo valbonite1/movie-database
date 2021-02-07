@@ -45,6 +45,14 @@ const MovieDetailProps = ({
                 )
               })}
             </ul>
+             <ul className='detail-director'>
+              <li>Directed by:</li>
+              {directors.map((director, index) => {
+                return (
+                  <li key={index}>{director}</li>
+                )
+              })}
+            </ul>   
             <div className='movie-deets'>
               <div className='rating'>
                 <div className='imdb-header'>
@@ -59,15 +67,6 @@ const MovieDetailProps = ({
                 <p className='full-plot'>{details.fullplot}</p>
               </div> 
             </div>
-            
-            <ul className='detail-director'>
-              <li>Directed by:</li>
-              {directors.map((director, index) => {
-                return (
-                  <li key={index}>{director}</li>
-                )
-              })}
-            </ul>   
           </div>
         </div>        
       </div>

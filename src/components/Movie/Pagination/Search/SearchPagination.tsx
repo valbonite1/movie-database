@@ -6,14 +6,15 @@ type Pagination = {
   numberOfPages: number[],
   arrOfCurrButtons: Array<number>
   setCurrentButton: (value: number | any) => void,
-  currentButton: number
+  currentButton: number,
 }
 
 const SearchPagination: React.FC<Pagination> = ({
   arrOfCurrButtons, 
   numberOfPages,
   setCurrentButton, 
-  currentButton }) => {
+  currentButton,
+}) => {
 
   const changeRoute = () => {
     window.scrollTo(700, 700)
@@ -32,7 +33,7 @@ const SearchPagination: React.FC<Pagination> = ({
   return (
     <div className="pagination-container">
       <Link
-        to={`/movies/page/${currentButton - 1}`}
+        to={`/search/${currentButton - 1}`}
         className={`${currentButton === 1 ? 'disabled' : ''}`}
         onClick={prevClicked}
       >
@@ -46,7 +47,7 @@ const SearchPagination: React.FC<Pagination> = ({
         }
         return (
           <Link
-            to={`/movies/page/${item}`}
+            to={`/search/${item}`}
             key={index}
             className={`${currentButton === item ? 'active' : ''}`}
             onClick={midClicked}
@@ -57,7 +58,7 @@ const SearchPagination: React.FC<Pagination> = ({
       }))}
 
       <Link
-        to={`/movies/page/${currentButton + 1}`}
+        to={`/search/${currentButton + 1}`}
         className={`${currentButton === numberOfPages.length ? 'disabled' : ''}`}
         onClick={nextClicked}
       >

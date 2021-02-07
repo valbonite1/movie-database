@@ -23,6 +23,10 @@ const MovieDetail = () => {
   const [writers, setWriters] = useState<any>([]);
   const [details, setDetails] = useState<any>([])
 
+  const id = details._id;
+
+  console.log(id);
+
 
   const fetchMovie = async () => {
 
@@ -45,7 +49,7 @@ const MovieDetail = () => {
         writers,
         ...data
       } = result.data.data
-      console.log(awards);
+      
       setImdb(imdb);
       setAwards(awards);
       setTomatoes(tomatoes);
@@ -61,9 +65,14 @@ const MovieDetail = () => {
     .catch(err => console.log(err));
   }
 
+
   useEffect(() => {
-    fetchMovie()
+    fetchMovie()    
   }, [])
+
+  /* useEffect(() => {
+    fetchComment();
+  }, [details]) */
 
   const handleBack = () => {
     history.goBack()
@@ -86,7 +95,12 @@ const MovieDetail = () => {
           writers={writers}
           details={details}
         />
-        <MovieTabs />
+        <MovieTabs
+          writers={writers}
+          cast={cast}
+          awards={awards}
+          countries={countries}
+        />
       </>
     }
     </>

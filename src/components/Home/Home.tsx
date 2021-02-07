@@ -2,6 +2,7 @@ import React from 'react'
 import { useAuth0 } from '@auth0/auth0-react';
 import LandingPage from '../HeroSection/LandingPage';
 import Chart from '../Analytics/Chart';
+import { Slider } from '@material-ui/core';
 
 
 const Home: React.FC = () => {

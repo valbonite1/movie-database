@@ -5,6 +5,7 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
+import { WriteStream, writeSync } from 'fs';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -51,7 +52,9 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function VerticalTabs() {
+/* ================================================================= */
+
+const MovieTabs = ({ writers, cast, awards, countries }) => {
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
 
@@ -76,16 +79,57 @@ export default function VerticalTabs() {
       </Tabs>
       <TabPanel value={value} index={0}>
         Writers
+        <ul className='writer-list'>
+          {writers.map((writer, index) => {
+            return(
+              <li key={index}>{writer}</li>
+            )
+          })}
+        </ul>
       </TabPanel>
       <TabPanel value={value} index={1}>
         Cast
+        <ul className='writer-list'>
+          {cast.map((member, index) => {
+            return(
+              <li key={index}>{member}</li>
+            )
+          })}
+        </ul>
       </TabPanel>
       <TabPanel value={value} index={2}>
         Awards and Nominations
+        <ul className='writer-list'>
+          {Object.keys(awards).map((award, index) => {
+            return(
+              <li key={index}>{award} : {awards[award]}</li>
+            )
+          })}
+        </ul>
       </TabPanel>
       <TabPanel value={value} index={3}>
         Countries
+        <ul className='writer-list'>
+          {countries.map((country, index) => {
+            return(
+              <li key={index}>{country}</li>
+            )
+          })}
+        </ul>
+      </TabPanel>
+      <TabPanel value={value} index={4}>
+        Countries
+        <ul className='writer-list'>
+          {countries.map((country, index) => {
+            return(
+              <li key={index}>{country}</li>
+            )
+          })}
+        </ul>
       </TabPanel>
     </div>
   );
 }
+
+
+export default MovieTabs;

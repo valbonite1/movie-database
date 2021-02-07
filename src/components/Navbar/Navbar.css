@@ -31,6 +31,7 @@
   align-items: center;
   background-color: var(--dark-orange);
   padding: 0.8rem 1rem;
+  margin-right: 1rem;
 }
 
 .logo.scrolled {
@@ -93,6 +94,9 @@
 }
 
 @media screen and (max-width: 1500px) {
+  .navbar-logo {
+    margin-right: 0;
+  }
   .navbar.scrolled {
     background-color: transparent;
     z-index: 1;
@@ -126,6 +130,9 @@
     border-radius: 100%;
     color: #fff;
     z-index: 11;
+    position: absolute;
+    top: 2rem;
+    right: 2rem;
   }
 
   .menu:hover {
@@ -152,7 +159,7 @@
     top: 0;
     flex-direction: column;
     left: -100%;
-    width: 80vw;
+    width: 100vw;
     height: 100vh;
     background-color: rgb(10, 10, 10);
     color: #fff;
